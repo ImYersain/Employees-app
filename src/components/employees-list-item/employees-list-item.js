@@ -1,8 +1,24 @@
 import './employees-list-item.css';
+import {Component} from 'react';
 
-const EmployeesListItem = ({name, salary, increase}) => {
+class EmployeesListItem extends Component{
+    constructor(props){
+        super(props);
+        this.state = {
+            increase: false
+        }
+    };
 
-    let classNames = "list-group-item d-flex justify-content-between";
+    onIncrease = () => {
+        this.setState(({increase}) => ({
+            increase: !increase
+        }))
+    }
+
+    render(){
+        const {name, salary} = this.props;
+        const {increase} = this.state;
+        let classNames = "list-group-item d-flex justify-content-between";
         // if(increase){            два варианта условия, либо отдельно. либо в строке но синтаксиз условного(тернарного) оператора
         //     classNames += ' increase';
         // }
@@ -14,7 +30,7 @@ const EmployeesListItem = ({name, salary, increase}) => {
             <div className='d-flex justify-content-center align-items-center'>
                 <button type="button"
                     className="btn-cookie btn-sm ">
-                    <i className="fas fa-cookie"></i>
+                    <i className="fas fa-cookie" onClick={this.onIncrease}></i>
                 </button>
 
                 <button type="button"
@@ -25,6 +41,7 @@ const EmployeesListItem = ({name, salary, increase}) => {
             </div>
         </li>
     )
+    }
 }
 
 export default EmployeesListItem;

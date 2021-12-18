@@ -1,23 +1,50 @@
+import {Component} from 'react';
 import './employees-add-form.css';
 
-const EmployeesAddForm = () => {
-    return (
-        <div className="app-add-form">
-            <h3>Add new employee</h3>
-            <form
-                className="add-form d-flex">
-                <input type="text"
-                    className="form-control new-post-label"
-                    placeholder="What is his name?" />
-                <input type="number"
-                    className="form-control new-post-label"
-                    placeholder="Salary in USD?" />
+class EmployeesAddForm extends Component {
 
-                <button type="submit"
-                        className="btn btn-outline-light">Add</button>
-            </form>
-        </div>
-    )
+    constructor(props){
+        super(props);
+        this.state = {
+            name: '',
+            salary: 0
+        }
+    }
+
+    onValueChange = (e) =>{
+        this.setState({
+            [e.target.name] : e.target.value
+        })
+    }
+
+    render(){
+        const {name, salary} = this.state;
+        
+        return (
+            <div className="app-add-form">
+                <h3>Add new employee</h3>
+                <form
+                    className="add-form d-flex">
+                    <input type="text"
+                        className="form-control new-post-label"
+                        placeholder="What is his name?"
+                        onChange={this.onValueChange} 
+                        name="name"
+                        value={name} />
+                    <input type="number"
+                        className="form-control new-post-label"
+                        placeholder="Salary in USD?"
+                        onChange={this.onValueChange} 
+                        name="salary"
+                        value={salary} />
+    
+                    <button type="submit"
+                            className="btn btn-outline-light">Add</button>
+                </form>
+            </div>
+        )
+    }
+
 }
 
 export default EmployeesAddForm;

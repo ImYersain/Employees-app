@@ -11,8 +11,8 @@ class EmployeesListItem extends Component{
     };
 
     onIncrease = () => {
-        this.setState(({increase}) => ({
-            increase: !increase
+        this.setState(({increase}) => ({    /* круглые скобки для того чтобы не прописывать return */
+            increase: !increase             /* задаем новое свойство increase которое будет противоположно тому что было до этого в этом свойстве, то есть работает как тогл */
         }))
     }
 

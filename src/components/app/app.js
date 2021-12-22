@@ -73,7 +73,14 @@ class App extends Component{
   }
 
   onToggleLike = (id) => {
-    console.log(`like is ${id}`)
+    this.setState(({data}) => ({
+      data: data.map(item => {
+        if(item.id === id){
+          return {...item, like: !item.like}
+        }
+        return item;
+      })
+    }))
   }
 
   

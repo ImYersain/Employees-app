@@ -7,7 +7,8 @@ class EmployeesAddForm extends Component {
         super(props);
         this.state = {
             name: '',
-            salary: ''
+            salary: '',
+            error: false
         }
     }
 
@@ -19,17 +20,30 @@ class EmployeesAddForm extends Component {
 
     onSubmit = (e) => {
         e.preventDefault();
-        this.props.onAdd(this.state.name, this.state.salary);
-        this.setState({
-            name: '',
-            salary: ''
-        })
+        if(this.state.name.length >= 2 || this.state.salary !== ''){
+            this.props.onAdd(this.state.name, this.state.salary);
+            this.setState({
+                name: '',
+                salary: '',
+                error: false
+            })
+        } else {
+            this.setState({
+                error: true
+            })
+        }
+
+        
     }
 
 
 
     render(){
-        const {name, salary} = this.state;
+        const {name, salary, error} = this.state;
+        let classNames = `form-control new-post-label`;
+        if(error === true) {
+            classNames += ' red';
+        }
         
         return (
             <div className="app-add-form">
@@ -38,14 +52,14 @@ class EmployeesAddForm extends Component {
                     className="add-form d-flex"
                     onSubmit={this.onSubmit}>
                     <input type="text"
-                        className="form-control new-post-label"
-                        placeholder="What is his name?"
+                        className={classNames}
+                        placeholder='What is his name?'
                         onChange={this.onValueChange} 
                         name="name"
                         value={name} />
                     <input type="number"
-                        className="form-control new-post-label"
-                        placeholder="Salary in USD?"
+                        className={classNames}
+                        placeholder='Salary in USD?'
                         onChange={this.onValueChange} 
                         name="salary"
                         value={salary} />
